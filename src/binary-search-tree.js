@@ -66,20 +66,31 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    function removeData(node, data) {      
-    if (!node)
-      return null;
-    if (node.data === data)
+    this.rootNode = removeData (this.rootNode,data)
+
+    function removeData(node, data) {
+      if (!node)
+        return node;
+      if (node.data > data)
+        node.left = removeData(node.left, data);
+      else if (node.data < data)
+        node.right = removeData(node.right, data);
+      else {
+        if(!node.left)
+          return node.right;
+        else if (!node.right)
+          return node.left;
+
+        console.log(node.right, node.right.min)
+        node.data = this.min(node.right).data;
+        node.right = removeData(node.right, node.key)
+      }
       return node;
-    if (node.data < data)
-      return removeData(node.right, data)
-    return removeData(node.left, data)
-  }
-  return removeData(this.rootNode, data);
+    }
 
 }
 
-min() {
+min(root = this.rootNode) {
   function minNode(node) {
     if (!node)
       return null;
@@ -87,11 +98,11 @@ min() {
       return node;
     return minNode(node.left);
   }
-  return minNode(this.rootNode).data;
+  return minNode(root).data;
 
 }
 
-max() {
+max(root = this.rootNode) {
   function maxNode(node) {
     if (!node)
       return null;
@@ -99,7 +110,7 @@ max() {
       return node;
     return maxNode(node.right);
   }
-  return maxNode(this.rootNode).data;
+  return maxNode(root).data;
 }
 }
 
