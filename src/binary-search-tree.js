@@ -82,15 +82,22 @@ class BinarySearchTree {
           return node.left;
 
         console.log(node.right, node.right.min)
-        node.data = this.min(node.right).data;
-        node.right = removeData(node.right, node.key)
+        node.data = minData(node.right);
+        node.right = removeData(node.right, node.data)
       }
       return node;
+    }
+    function minData(node) {
+      if (!node)
+        return null;
+      if (!node.left)
+        return node.data;
+      return minData(node.left);
     }
 
 }
 
-min(root = this.rootNode) {
+min() {
   function minNode(node) {
     if (!node)
       return null;
@@ -98,11 +105,11 @@ min(root = this.rootNode) {
       return node;
     return minNode(node.left);
   }
-  return minNode(root).data;
+  return minNode(this.rootNode).data;
 
 }
 
-max(root = this.rootNode) {
+max() {
   function maxNode(node) {
     if (!node)
       return null;
@@ -110,7 +117,7 @@ max(root = this.rootNode) {
       return node;
     return maxNode(node.right);
   }
-  return maxNode(root).data;
+  return maxNode(this.rootNode).data;
 }
 }
 
