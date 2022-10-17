@@ -22,14 +22,21 @@ class Queue {
     return this.head;
   }
 
-  enqueue(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  enqueue(value) {
+    let setNode = new ListNode(value);
+    if (!this.head) {
+      this.head=setNode;
+      this.tail=this.head;
+    } else {
+      this.tail.next = setNode;
+      this.tail = setNode;
+    }
   }
 
   dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let buffer = this.head;
+    this.head = this.head.next;
+    return buffer.value;
   }
 }
 
